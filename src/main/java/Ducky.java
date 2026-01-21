@@ -31,21 +31,41 @@ public class Ducky {
             }
 
             else if (mainCommand.equals("mark")) {
-                int taskNumber = Integer.parseInt(commandValue);
+                try {
+                    int taskNumber = Integer.parseInt(commandValue);
 
-                tasks.get(taskNumber - 1).markAsDone();
+                    tasks.get(taskNumber - 1).markAsDone();
 
-                System.out.println("Quack! I've marked task " + taskNumber + " \"" 
-                    + tasks.get(taskNumber - 1).getDescription() + "\" as done");
+                    System.out.println("Quack! I've marked task " + taskNumber + " \"" 
+                        + tasks.get(taskNumber - 1).getDescription() + "\" as done");
+                }
+                catch (NumberFormatException e) {
+                    System.out.println(commandValue + " is not number.\n" + 
+                        "Please input a task index between 1 and " + String.valueOf(tasks.size()));
+                }
+                catch (IndexOutOfBoundsException e) {
+                    System.out.println(commandValue + " is out of bounds.\n" + 
+                        "Please input a task index between 1 and " + String.valueOf(tasks.size()));
+                }
             }
 
             else if (mainCommand.equals("unmark")) {
-                int taskNumber = Integer.parseInt(commandValue);
+                try {
+                    int taskNumber = Integer.parseInt(commandValue);
 
-                tasks.get(taskNumber - 1).ummarkAsDone();
+                    tasks.get(taskNumber - 1).ummarkAsDone();
 
-                System.out.println("Quack. I've set task " + taskNumber + " \"" 
-                    + tasks.get(taskNumber - 1).getDescription() + "\" as not done");
+                    System.out.println("Quack. I've set task " + taskNumber + " \"" 
+                        + tasks.get(taskNumber - 1).getDescription() + "\" as not done");
+                }
+                catch (NumberFormatException e) {
+                    System.out.println(commandValue + " is not number.\n" + 
+                        "Please input a task index between 1 and " + String.valueOf(tasks.size()));
+                }
+                catch (IndexOutOfBoundsException e) {
+                    System.out.println(commandValue + " is out of bounds.\n" + 
+                        "Please input a task index between 1 and " + String.valueOf(tasks.size()));
+                }
             }
 
             else if (mainCommand.equals("todo")) {
@@ -57,6 +77,13 @@ public class Ducky {
 
             else if (mainCommand.equals("deadline")) {
                 String deadline = parsedInput.get("by");
+
+                if (deadline == null) {
+                    System.out.println("Please follow the format");
+                    System.out.println("deadline <taskname> /by <time>");
+                    continue;
+                }
+
                 DeadlineTask newTask = new DeadlineTask(commandValue, deadline);
                 tasks.add(newTask);
 
@@ -66,6 +93,13 @@ public class Ducky {
             else if (mainCommand.equals("event")) {
                 String from = parsedInput.get("from");
                 String to = parsedInput.get("to");
+
+                if (from == null || to == null) {
+                    System.out.println("Please follow the format");
+                    System.out.println("event <taskname> /from <time> /to <time>");
+                    continue;
+                }
+
                 EventTask newTask = new EventTask(commandValue, from, to);
                 tasks.add(newTask);
 
