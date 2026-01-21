@@ -68,6 +68,25 @@ public class Ducky {
                 }
             }
 
+            else if (mainCommand.equals("delete")) {
+                try {
+                    int taskNumber = Integer.parseInt(commandValue);
+
+                    Task taskRemoved = tasks.remove(taskNumber - 1);
+                   
+                    System.out.println("Quack! I've deleted task " + taskNumber + " \"" 
+                        + taskRemoved.getDescription() + "\"");
+                }
+                catch (NumberFormatException e) {
+                    System.out.println(commandValue + " is not number.\n" + 
+                        "Please input a task index between 1 and " + String.valueOf(tasks.size()));
+                }
+                catch (IndexOutOfBoundsException e) {
+                    System.out.println(commandValue + " is out of bounds.\n" + 
+                        "Please input a task index between 1 and " + String.valueOf(tasks.size()));
+                }
+            }
+
             else if (mainCommand.equals("todo")) {
                 ToDoTask newTask = new ToDoTask(commandValue);
                 tasks.add(newTask);
