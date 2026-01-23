@@ -51,7 +51,21 @@ public class SaveManager {
         }
     }
 
-    public ArrayList<Task> readAllTasks() {
-        return null;
+    public ArrayList<Command> readAllLines() {
+        ArrayList<Command> commands = new ArrayList<Command>();
+
+        try {
+            List<String> lines = Files.readAllLines(filePath);        
+            lines.forEach((line) -> {
+                commands.add(new Command(line));
+            });
+        } catch (IOException e) {
+
+            System.err.println("An error occurred: " + e.getMessage());
+            e.printStackTrace();
+
+        }
+        
+        return commands;
     }
 }
