@@ -1,14 +1,12 @@
 import java.util.Scanner; 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Ducky {
     
 
-
     public static void main(String[] args) {
         SaveManager saveManager = new SaveManager();
-        ArrayList<Task> tasks = new ArrayList<Task>();
+        TaskList tasks = new TaskList();
 
         System.out.println("Hi! My name is Ducky!");
         System.out.println("I add tasks wow");
@@ -17,14 +15,14 @@ public class Ducky {
             Scanner scanner = new Scanner(System.in);
             String userInput = scanner.nextLine();
 
+            Command command = new Command(userInput);
+
+            String mainCommand = command.get("commandType");
+            String commandValue = command.get("commandValue");
+
             if (userInput.equals("bye")) {
                 return;
             }
-
-            HashMap<String, String> parsedInput = parseInputs(userInput);
-
-            String mainCommand = parsedInput.get("command");
-            String commandValue = parsedInput.get("commandValue");
 
             else if (mainCommand.equals("list")) {
                 for (int i = 0; i < tasks.size(); i++) {
@@ -107,7 +105,7 @@ public class Ducky {
             }
 
             else if (mainCommand.equals("deadline")) {
-                String deadline = parsedInput.get("by");
+                String deadline = command.get("by");
 
                 if (deadline == null) {
                     System.out.println("Please follow the format");
@@ -124,8 +122,8 @@ public class Ducky {
             }
 
             else if (mainCommand.equals("event")) {
-                String from = parsedInput.get("from");
-                String to = parsedInput.get("to");
+                String from = command.get("from");
+                String to = command.get("to");
 
                 if (from == null || to == null) {
                     System.out.println("Please follow the format");
@@ -147,35 +145,4 @@ public class Ducky {
             }
         }
     }
-
-    // returns an ArrayList containing the format of the pair (param name, thing)
-    // ArrayList[0].first always gives you the main command name
-    public static HashMap<String, String> parseInputs(String input) {
-        HashMap<String, String> result = new HashMap<String, String>();
-
-        String[] segments = input.split("/");
-
-        for(String segment : segments){
-            String[] tokens = segment.split("\\s+");
-            String param = tokens[0];
-            String value = "";
-            for (int i = 1; i < tokens.length; i++) {
-                if (i != 1)
-                    value += " "; 
-                value += tokens[i];
-            }
-
-            if (segment == segments[0]) {
-                result.put("command", param);
-                result.put("commandValue", value);
-            }
-            
-            else {
-                result.put(param, value);
-            }
-        }
-
-
-        return result;
-    } 
 }

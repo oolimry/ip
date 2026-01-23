@@ -30,7 +30,7 @@ public class SaveManager {
         }
     }
 
-    public void saveAllTasks(ArrayList<Task> tasks) {
+    public void saveAllTasks(TaskList tasks) {
         try {
             String content = "";
 
@@ -42,8 +42,6 @@ public class SaveManager {
             Files.writeString(filePath, content, 
                     StandardOpenOption.CREATE, 
                     StandardOpenOption.TRUNCATE_EXISTING);
-
-            System.out.println(content);
 
         } catch (IOException e) {
 
