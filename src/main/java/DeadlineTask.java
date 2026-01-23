@@ -11,4 +11,13 @@ public class DeadlineTask extends Task {
     public String toString() {
         return "[D]" + super.toString() + " (by: " + this.deadline + ")";
     }
+
+    @Override
+    public String toSaveFormat() {
+        String res = "deadline " + description + " /by " + deadline;
+        if (this.isDone) {
+            res += " /marked 1";
+        }
+        return res;
+    }
 }

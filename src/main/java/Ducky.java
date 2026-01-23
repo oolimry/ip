@@ -3,7 +3,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Ducky {
+    
+
+
     public static void main(String[] args) {
+        SaveManager saveManager = new SaveManager();
         ArrayList<Task> tasks = new ArrayList<Task>();
 
         System.out.println("Hi! My name is Ducky!");
@@ -13,14 +17,14 @@ public class Ducky {
             Scanner scanner = new Scanner(System.in);
             String userInput = scanner.nextLine();
 
+            if (userInput.equals("bye")) {
+                return;
+            }
+
             HashMap<String, String> parsedInput = parseInputs(userInput);
 
             String mainCommand = parsedInput.get("command");
             String commandValue = parsedInput.get("commandValue");
-
-            if (userInput.equals("bye")) {
-                break;
-            }
 
             else if (mainCommand.equals("list")) {
                 for (int i = 0; i < tasks.size(); i++) {
@@ -47,6 +51,8 @@ public class Ducky {
                     System.out.println(commandValue + " is out of bounds.\n" + 
                         "Please input a task index between 1 and " + String.valueOf(tasks.size()));
                 }
+
+                saveManager.saveAllTasks(tasks);
             }
 
             else if (mainCommand.equals("unmark")) {
@@ -66,6 +72,8 @@ public class Ducky {
                     System.out.println(commandValue + " is out of bounds.\n" + 
                         "Please input a task index between 1 and " + String.valueOf(tasks.size()));
                 }
+
+                saveManager.saveAllTasks(tasks);
             }
 
             else if (mainCommand.equals("delete")) {
@@ -85,6 +93,8 @@ public class Ducky {
                     System.out.println(commandValue + " is out of bounds.\n" + 
                         "Please input a task index between 1 and " + String.valueOf(tasks.size()));
                 }
+
+                saveManager.saveAllTasks(tasks);
             }
 
             else if (mainCommand.equals("todo")) {
@@ -92,6 +102,8 @@ public class Ducky {
                 tasks.add(newTask);
 
                 System.out.println("Added todo: " + newTask);
+
+                saveManager.saveAllTasks(tasks);
             }
 
             else if (mainCommand.equals("deadline")) {
@@ -107,6 +119,8 @@ public class Ducky {
                 tasks.add(newTask);
 
                 System.out.println("Added deadline: " + newTask);
+
+                saveManager.saveAllTasks(tasks);
             }
 
             else if (mainCommand.equals("event")) {
@@ -123,6 +137,8 @@ public class Ducky {
                 tasks.add(newTask);
 
                 System.out.println("Added event: " + newTask);
+
+                saveManager.saveAllTasks(tasks);
             }
 
 
