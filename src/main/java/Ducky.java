@@ -1,10 +1,9 @@
 import java.util.Scanner; 
-import java.util.HashMap;
 import java.util.ArrayList;
-
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 public class Ducky {
-    
 
     public static void main(String[] args) {
         SaveManager saveManager = new SaveManager();
@@ -129,30 +128,36 @@ public class Ducky {
         }
 
         else if (mainCommand.equals("deadline")) {
-            String deadline = command.get("by");
+            try {
+                LocalDate deadline = LocalDate.parse(command.get("by"));
 
-            if (deadline == null) {
-                System.out.println("Please follow the format");
-                System.out.println("deadline <taskname> /by <time>");
-                return;
+                if (deadline == null) {
+                    System.out.println("Please follow the format");
+                    System.out.println("deadline <taskname> /by <time>");
+                    return;
+                }
+
+                DeadlineTask newTask = new DeadlineTask(commandValue, deadline);
+
+                if (command.get("marked") != null) {
+                    newTask.isDone = true;
+                }
+
+                tasks.add(newTask);
+
+                System.out.println("Added deadline: " + newTask);
+
+                saveManager.saveAllTasks(tasks);
             }
-
-            DeadlineTask newTask = new DeadlineTask(commandValue, deadline);
-
-            if (command.get("marked") != null) {
-                newTask.isDone = true;
+            catch (DateTimeParseException e) {
+                System.out.println("Date Format Error! Please enter deadline in the format of " +
+                        Constants.SAVE_DATE_FORMAT);
             }
-
-            tasks.add(newTask);
-
-            System.out.println("Added deadline: " + newTask);
-
-            saveManager.saveAllTasks(tasks);
         }
 
         else if (mainCommand.equals("event")) {
-            String from = command.get("from");
-            String to = command.get("to");
+            LocalDate from = LocalDate.parse(command.get("from"));
+            LocalDate to = LocalDate.parse(command.get("to"));
 
             
             if (from == null || to == null) {
