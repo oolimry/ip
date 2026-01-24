@@ -1,3 +1,3 @@
 # AI Declaration
 
-1. https://gemini.google.com/share/38f01a0796ce Used Gemini to generate boilerplate code for input/output reading using Nio. This was then modified to the SaveManager.java file
+1. AI was used to generate boilerplate code for Java NIO file input and output: https://gemini.google.com/share/0e6e69e36981

@@ -17,4 +17,4 @@ bin/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
-/testingcommand.txt
+testingcommand.txt
