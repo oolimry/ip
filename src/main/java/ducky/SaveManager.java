@@ -32,6 +32,10 @@ public class SaveManager {
         }
     }
 
+    public void clearAllTasks() {
+        saveAllTasks(new TaskList());
+    }
+
     public void saveAllTasks(TaskList tasks) {
         try {
             String content = "";

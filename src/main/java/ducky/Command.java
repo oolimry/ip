@@ -4,6 +4,7 @@ package ducky;
 import java.util.HashMap;
 
 public class Command extends HashMap<String, String> {
+
     public Command (String input) {
         String[] segments = input.split("/");
 
@@ -26,7 +27,5 @@ public class Command extends HashMap<String, String> {
                 this.put(param, value);
             }
         }
-
-
     } 
 }
