@@ -12,6 +12,9 @@ public class SaveManager {
     private Path directoryPath;
     private Path filePath;
 
+    /**
+     * Constructor for the SaveManager
+     */
     public SaveManager() {
         String home = System.getProperty("user.home");
         directoryPath = Paths.get(home, "cs2103t", "ducky");
@@ -66,6 +69,12 @@ public class SaveManager {
         }
     }
 
+    /**
+     * Reads the local storage for tasks
+     * Reads each line as a command to construct the task stored
+     *
+     * @return an ArrayList of Commands
+     */
     public ArrayList<Command> readAllLines() {
         ArrayList<Command> commands = new ArrayList<Command>();
 
