@@ -5,8 +5,8 @@ import java.time.format.DateTimeFormatter;
 
 public class EventTask extends Task {
 
-    private LocalDate from;
-    private LocalDate to;
+    private final LocalDate from;
+    private final LocalDate to;
 
     public EventTask(String description, LocalDate from, LocalDate to) {
         super(description);
