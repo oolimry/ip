@@ -14,7 +14,6 @@ public class UI {
 
     public String getInput() {
         Scanner scanner = new Scanner(System.in);
-        String userInput = scanner.nextLine();
-        return userInput;
+        return scanner.nextLine();
     }
 }
