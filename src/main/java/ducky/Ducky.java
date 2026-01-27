@@ -1,15 +1,14 @@
 package ducky;
 
-import java.util.Scanner; 
 import java.util.ArrayList;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
 public class Ducky {
 
-    private TaskList tasks = new TaskList();
-    private SaveManager saveManager = new SaveManager();
-    private UI ui = new UI();
+    private final TaskList tasks = new TaskList();
+    private final SaveManager saveManager = new SaveManager();
+    private final UI ui = new UI();
 
     /**
      * Constructor for Ducky.
@@ -20,12 +19,10 @@ public class Ducky {
 
         ui.printWelcomeMessage();
 
-        if (loadedTaskCommands.size() > 0){
+        if (loadedTaskCommands.isEmpty()){
            ui.printMessage("The following tasks were saved the last time: ");
 
-            loadedTaskCommands.forEach((command) -> {
-                runCommand(command);
-            });
+            loadedTaskCommands.forEach(this::runCommand);
 
             ui.printMessage("Tasks Loaded!\n");
         }
@@ -46,21 +43,23 @@ public class Ducky {
     /**
      * Takes in a Command and runs it
      *
-     * @param command
+     * @param command the command to run
      */
     private void runCommand (Command command) {
         String mainCommand = command.get("commandType");
         String commandValue = command.get("commandValue");
 
-        if (mainCommand.equals("list")) {
+        switch (mainCommand) {
+
+        case "list" -> {
             for (int i = 0; i < tasks.size(); i++) {
                 ui.printMessage(
-                        String.valueOf(i+1) + ": " + tasks.get(i).toString()
+                        String.valueOf(i + 1) + ": " + tasks.get(i).toString()
                 );
             }
         }
 
-        else if (mainCommand.equals("mark")) {
+        case "mark" -> {
             try {
                 int taskNumber = Integer.parseInt(commandValue);
 
@@ -68,12 +67,10 @@ public class Ducky {
 
                 ui.printMessage("Quack! I've marked task " + taskNumber + " \""
                         + tasks.get(taskNumber - 1).getDescription() + "\" as done");
-            }
-            catch (NumberFormatException e) {
+            } catch (NumberFormatException e) {
                 ui.printMessage(commandValue + " is not number.\n" +
                         "Please input a task index between 1 and " + String.valueOf(tasks.size()));
-            }
-            catch (IndexOutOfBoundsException e) {
+            } catch (IndexOutOfBoundsException e) {
                 ui.printMessage(commandValue + " is out of bounds.\n" +
                         "Please input a task index between 1 and " + String.valueOf(tasks.size()));
             }
@@ -81,7 +78,7 @@ public class Ducky {
             saveManager.saveAllTasks(tasks);
         }
 
-        else if (mainCommand.equals("unmark")) {
+        case "unmark" -> {
             try {
                 int taskNumber = Integer.parseInt(commandValue);
 
@@ -89,12 +86,10 @@ public class Ducky {
 
                 ui.printMessage("Quack. I've set task " + taskNumber + " \""
                         + tasks.get(taskNumber - 1).getDescription() + "\" as not done");
-            }
-            catch (NumberFormatException e) {
+            } catch (NumberFormatException e) {
                 ui.printMessage(commandValue + " is not number.\n" +
                         "Please input a task index between 1 and " + String.valueOf(tasks.size()));
-            }
-            catch (IndexOutOfBoundsException e) {
+            } catch (IndexOutOfBoundsException e) {
                 ui.printMessage(commandValue + " is out of bounds.\n" +
                         "Please input a task index between 1 and " + String.valueOf(tasks.size()));
             }
@@ -102,7 +97,7 @@ public class Ducky {
             saveManager.saveAllTasks(tasks);
         }
 
-        else if (mainCommand.equals("delete")) {
+        case "delete" -> {
             try {
                 int taskNumber = Integer.parseInt(commandValue);
 
@@ -110,12 +105,10 @@ public class Ducky {
 
                 ui.printMessage("Quack! I've deleted task " + taskNumber + " \""
                         + taskRemoved.getDescription() + "\"");
-            }
-            catch (NumberFormatException e) {
+            } catch (NumberFormatException e) {
                 ui.printMessage(commandValue + " is not number.\n" +
                         "Please input a task index between 1 and " + String.valueOf(tasks.size()));
-            }
-            catch (IndexOutOfBoundsException e) {
+            } catch (IndexOutOfBoundsException e) {
                 ui.printMessage(commandValue + " is out of bounds.\n" +
                         "Please input a task index between 1 and " + String.valueOf(tasks.size()));
             }
@@ -123,7 +116,7 @@ public class Ducky {
             saveManager.saveAllTasks(tasks);
         }
 
-        else if (mainCommand.equals("todo")) {
+        case "todo" -> {
             ToDoTask newTask = new ToDoTask(commandValue);
             tasks.add(newTask);
 
@@ -136,15 +129,15 @@ public class Ducky {
             saveManager.saveAllTasks(tasks);
         }
 
-        else if (mainCommand.equals("deadline")) {
+        case "deadline" -> {
             try {
-                LocalDate deadline = LocalDate.parse(command.get("by"));
-
-                if (deadline == null) {
+                if (!command.containsKey("by")) {
                     ui.printMessage("Please follow the format");
                     ui.printMessage("deadline <taskname> /by <time>");
                     return;
                 }
+
+                LocalDate deadline = LocalDate.parse(command.get("by"));
 
                 DeadlineTask newTask = new DeadlineTask(commandValue, deadline);
 
@@ -157,23 +150,23 @@ public class Ducky {
                 ui.printMessage("Added deadline: " + newTask);
 
                 saveManager.saveAllTasks(tasks);
-            }
-            catch (DateTimeParseException e) {
+            } catch (DateTimeParseException e) {
                 ui.printMessage("Date Format Error! Please enter deadline in the format of " +
                         Constants.SAVE_DATE_FORMAT);
             }
         }
 
-        else if (mainCommand.equals("event")) {
-            LocalDate from = LocalDate.parse(command.get("from"));
-            LocalDate to = LocalDate.parse(command.get("to"));
+        case "event" -> {
 
 
-            if (from == null || to == null) {
+            if (!command.containsKey("from") || !command.containsKey("to")) {
                 ui.printMessage("Please follow the format");
                 ui.printMessage("event <taskname> /from <time> /to <time>");
                 return;
             }
+
+            LocalDate from = LocalDate.parse(command.get("from"));
+            LocalDate to = LocalDate.parse(command.get("to"));
 
             EventTask newTask = new EventTask(commandValue, from, to);
 
@@ -187,10 +180,7 @@ public class Ducky {
 
             saveManager.saveAllTasks(tasks);
         }
-
-
-        else {
-            ui.printMessage("Command not found!");
+        default -> ui.printMessage("Command not found!");
         }
     }
 

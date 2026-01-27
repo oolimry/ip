@@ -9,8 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SaveManager {
-    Path directoryPath;
-    Path filePath;
+    private Path directoryPath;
+    private Path filePath;
 
     public SaveManager() {
         String home = System.getProperty("user.home");
