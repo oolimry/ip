@@ -11,6 +11,10 @@ public class Ducky {
     private SaveManager saveManager = new SaveManager();
     private UI ui = new UI();
 
+    /**
+     * Constructor for Ducky.
+     * Upon constructing, runs the main loop
+     */
     public Ducky() {
         ArrayList<Command> loadedTaskCommands = saveManager.readAllLines();
 
@@ -39,6 +43,11 @@ public class Ducky {
         }
     }
 
+    /**
+     * Takes in a Command and runs it
+     *
+     * @param command
+     */
     private void runCommand (Command command) {
         String mainCommand = command.get("commandType");
         String commandValue = command.get("commandValue");

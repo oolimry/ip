@@ -32,10 +32,19 @@ public class SaveManager {
         }
     }
 
+    /**
+     * Deletes all tasks and saves it
+     */
     public void clearAllTasks() {
         saveAllTasks(new TaskList());
     }
 
+    /**
+     * Saves tasks to local storage based on the TaskList provided
+     * Overrides the file in the local storage
+     *
+     * @param tasks the list of tasks to save
+     */
     public void saveAllTasks(TaskList tasks) {
         try {
             String content = "";

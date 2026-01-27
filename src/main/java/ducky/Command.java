@@ -5,6 +5,17 @@ import java.util.HashMap;
 
 public class Command extends HashMap<String, String> {
 
+    /**
+     * Constructor for a Command given an input String
+     * Command format: [commandType] [commandValue] /param1 value1 /param2 value2 ...
+     *
+     * Command is a HashMap<String,String> with the following
+     * command.get("commandType") gives the type of command
+     * command.get("commandValue") gives the value of the command
+     * command.get("paramX") gives valueX where X is an integer starting from 1
+     *
+     * @param input a string in the Command format described above
+     */
     public Command (String input) {
         String[] segments = input.split("/");
 
