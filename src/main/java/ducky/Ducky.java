@@ -180,6 +180,22 @@ public class Ducky {
 
             saveManager.saveAllTasks(tasks);
         }
+
+        case "find" -> {
+            String criteria = command.get("commandValue");
+            for (int i = 0; i < tasks.size(); i++) {
+                Task task = tasks.get(i);
+
+                if (!task.getDescription().contains(criteria)) {
+                    continue;
+                }
+
+                ui.printMessage(
+                        String.valueOf(i + 1) + ": " + task.toString()
+                );
+            }
+        }
+
         default -> ui.printMessage("Command not found!");
         }
     }
