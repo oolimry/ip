@@ -39,6 +39,7 @@ public class SaveManager {
      * Deletes all tasks and saves it
      */
     public void clearAllTasks() {
+        System.out.println("Warning: Clearing all tasks");
         saveAllTasks(new TaskList());
     }
 
