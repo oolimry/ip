@@ -11,7 +11,10 @@ public class UI {
     private String accumulatedMessages = "";
 
     public void printMessage(String message) {
-        accumulatedMessages += "\n" + message;
+        if(!accumulatedMessages.equals("")) {
+            accumulatedMessages += "\n";
+        }
+        accumulatedMessages += message;
         System.out.println(message);
     }
 

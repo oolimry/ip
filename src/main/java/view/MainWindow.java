@@ -23,8 +23,8 @@ public class MainWindow extends AnchorPane {
 
     private Ducky ducky;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.jpg"));
+    private Image duckyImage = new Image(this.getClass().getResourceAsStream("/images/ducky.jpg"));
 
     @FXML
     public void initialize() {
@@ -36,7 +36,7 @@ public class MainWindow extends AnchorPane {
         ducky = d;
         String firstMessage = ducky.getFirstMessage();
         dialogContainer.getChildren().add(
-                DialogBox.getDuckyDialog(firstMessage, dukeImage)
+                DialogBox.getDuckyDialog(firstMessage, duckyImage)
         );
     }
 
@@ -47,11 +47,16 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
+
         String response = ducky.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDuckyDialog(response, dukeImage)
+                DialogBox.getDuckyDialog(response, duckyImage)
         );
         userInput.clear();
+
+        if(input.equals("bye")) {
+            System.exit(0);
+        }
     }
 }
