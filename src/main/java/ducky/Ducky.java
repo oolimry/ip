@@ -12,33 +12,26 @@ public class Ducky {
 
     /**
      * Constructor for Ducky.
-     * Upon constructing, runs the main loop
      */
     public Ducky() {
-        ArrayList<Command> loadedTaskCommands = saveManager.readAllLines();
+    }
 
+    public String getFirstMessage() {
+        ArrayList<Command> loadedTaskCommands = saveManager.readAllLines();
         ui.printWelcomeMessage();
 
         if (!loadedTaskCommands.isEmpty()){
-           ui.printMessage("The following tasks were saved the last time: ");
+            ui.printMessage("The following tasks were saved the last time: ");
 
             loadedTaskCommands.forEach(this::runCommand);
 
             ui.printMessage("Tasks Loaded!\n");
         }
-        /*
-        while (true) {
-            String userInput = ui.getInput();
 
-            if (userInput.equals("bye")) {
-                return;
-            }
+        String messagesToPutOntoScreen = ui.getAccumulatedMessages();
+        ui.clearAccumulatedMessages();
 
-            Command command = new Command(userInput);
-
-            runCommand(command);
-        }
-        */
+        return messagesToPutOntoScreen;
     }
 
     /**
@@ -158,8 +151,6 @@ public class Ducky {
         }
 
         case "event" -> {
-
-
             if (!command.containsKey("from") || !command.containsKey("to")) {
                 ui.printMessage("Please follow the format");
                 ui.printMessage("event <taskname> /from <time> /to <time>");
@@ -208,7 +199,17 @@ public class Ducky {
     /**
      * Generates a response for the user's chat message.
      */
-    public String getResponse(String input) {
-        return "Ducky heard: " + input;
+    public String getResponse(String userInput) {
+        if (userInput.equals("bye")) {
+            return "bye!";
+        }
+
+        Command command = new Command(userInput);
+        runCommand(command);
+
+        String messagesToPutOntoScreen = ui.getAccumulatedMessages();
+        ui.clearAccumulatedMessages();
+
+        return messagesToPutOntoScreen;
     }
 }

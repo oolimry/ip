@@ -31,9 +31,13 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    /** Injects the Duke instance */
+    /** Injects the Ducky instance */
     public void setDucky(Ducky d) {
         ducky = d;
+        String firstMessage = ducky.getFirstMessage();
+        dialogContainer.getChildren().add(
+                DialogBox.getDuckyDialog(firstMessage, dukeImage)
+        );
     }
 
     /**
@@ -46,7 +50,7 @@ public class MainWindow extends AnchorPane {
         String response = ducky.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getDuckyDialog(response, dukeImage)
         );
         userInput.clear();
     }

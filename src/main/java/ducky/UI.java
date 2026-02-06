@@ -8,8 +8,19 @@ public class UI {
         System.out.println("I add tasks wow");
     }
 
+    private String accumulatedMessages = "";
+
     public void printMessage(String message) {
+        accumulatedMessages += "\n" + message;
         System.out.println(message);
+    }
+
+    public void clearAccumulatedMessages() {
+        accumulatedMessages = "";
+    }
+
+    public String getAccumulatedMessages() {
+        return accumulatedMessages;
     }
 
     public String getInput() {
