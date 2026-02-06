@@ -1,5 +1,6 @@
 package view;
 
+import ducky.Ducky;
 import javafx.scene.layout.Region;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -22,10 +23,12 @@ public class Main extends Application {
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Ducky ducky = new Ducky();
 
     @Override
     public void start(Stage stage) {
         //Setting up required components
+
 
         scrollPane = new ScrollPane();
         dialogContainer = new VBox();
@@ -34,8 +37,16 @@ public class Main extends Application {
         userInput = new TextField();
         sendButton = new Button("Send");
 
+        sendButton.setOnMouseClicked((event) -> {
+            handleUserInput();
+        });
+        userInput.setOnAction((event) -> {
+            handleUserInput();
+        });
+
         DialogBox dialogBox = new DialogBox("Hello!", userImage);
         dialogContainer.getChildren().addAll(dialogBox);
+        dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
 
         AnchorPane mainLayout = new AnchorPane();
         mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
@@ -74,5 +85,19 @@ public class Main extends Application {
         stage.show();
 
         //More code to be added here later
+    }
+
+    /**
+     * Creates a dialog box containing user input, and appends it to
+     * the dialog container. Clears the user input after processing.
+     */
+    private void handleUserInput() {
+        String userText = userInput.getText();
+        String duckyText = ducky.getResponse(userInput.getText());
+        dialogContainer.getChildren().addAll(
+                DialogBox.getUserDialog(userText, userImage),
+                DialogBox.getDukeDialog(duckyText, dukeImage)
+        );
+        userInput.clear();
     }
 }

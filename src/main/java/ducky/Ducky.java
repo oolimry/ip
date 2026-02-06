@@ -26,7 +26,7 @@ public class Ducky {
 
             ui.printMessage("Tasks Loaded!\n");
         }
-
+        /*
         while (true) {
             String userInput = ui.getInput();
 
@@ -38,6 +38,7 @@ public class Ducky {
 
             runCommand(command);
         }
+        */
     }
 
     /**
@@ -204,5 +205,10 @@ public class Ducky {
         Ducky ducky = new Ducky();
     }
 
-
+    /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) {
+        return "Ducky heard: " + input;
+    }
 }
