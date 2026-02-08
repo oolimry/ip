@@ -3,6 +3,9 @@ package ducky;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * A task that has a deadline to finish by
+ */
 public class DeadlineTask extends Task {
 
     private LocalDate deadline;

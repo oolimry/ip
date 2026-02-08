@@ -3,6 +3,9 @@ package ducky;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * A task that lasts between a date (from) and a date (to)
+ */
 public class EventTask extends Task {
 
     private final LocalDate from;
