@@ -8,6 +8,9 @@ import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Handles all reading and writing to storage
+ */
 public class SaveManager {
     private Path directoryPath;
     private Path filePath;
@@ -82,6 +85,9 @@ public class SaveManager {
         try {
             List<String> lines = Files.readAllLines(filePath);        
             lines.forEach((line) -> {
+                Command newCommand = new Command(line);
+                String commandType = newCommand.get("commandType");
+                assert (commandType.equals("todo") || commandType.equals("deadline") || commandType.equals("event") );
                 commands.add(new Command(line));
             });
         } catch (IOException e) {

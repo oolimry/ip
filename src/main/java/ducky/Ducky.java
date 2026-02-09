@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+/**
+ * The main logic runner for the chatbot app
+ */
 public class Ducky {
 
     private final TaskList tasks = new TaskList();
