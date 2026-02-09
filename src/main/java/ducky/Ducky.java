@@ -21,7 +21,7 @@ public class Ducky {
         ui.printWelcomeMessage();
 
         if (!loadedTaskCommands.isEmpty()){
-            ui.printMessage("The following tasks were saved the last time: ");
+            ui.printMessage("The following tasks were saved the last time:  ");
 
             loadedTaskCommands.forEach(this::runCommand);
 
