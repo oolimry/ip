@@ -1,6 +1,7 @@
 package view;
 
 import ducky.Ducky;
+import ducky.input.InputPredictor;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -22,6 +23,7 @@ public class MainWindow extends AnchorPane {
     private Button sendButton;
 
     private Ducky ducky;
+    private final InputPredictor inputPredictor = new InputPredictor();
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.jpg"));
     private Image duckyImage = new Image(this.getClass().getResourceAsStream("/images/ducky.jpg"));
@@ -29,6 +31,10 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+
+        userInput.textProperty().addListener((observable, oldValue, newValue) -> {
+            onUserInputUpdated(newValue);
+        });
     }
 
     /** Injects the Ducky instance */
@@ -38,6 +44,10 @@ public class MainWindow extends AnchorPane {
         dialogContainer.getChildren().add(
                 DialogBox.getDuckyDialog(firstMessage, duckyImage)
         );
+    }
+
+    private void onUserInputUpdated(String stringInUserInput) {
+        inputPredictor.getNextPossibleSegments(stringInUserInput);
     }
 
     /**

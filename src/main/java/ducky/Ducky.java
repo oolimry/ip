@@ -1,5 +1,7 @@
 package ducky;
 
+import ducky.input.InputPredictor;
+
 import java.util.ArrayList;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
@@ -12,6 +14,7 @@ public class Ducky {
     private final TaskList tasks = new TaskList();
     private final SaveManager saveManager = new SaveManager();
     private final UI ui = new UI();
+
 
     /**
      * Constructor for Ducky.
