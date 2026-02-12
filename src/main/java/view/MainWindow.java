@@ -23,7 +23,7 @@ public class MainWindow extends AnchorPane {
     private Button sendButton;
 
     private Ducky ducky;
-    private final InputPredictor inputPredictor = new InputPredictor();
+    private InputPredictor inputPredictor;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.jpg"));
     private Image duckyImage = new Image(this.getClass().getResourceAsStream("/images/ducky.jpg"));
@@ -40,6 +40,7 @@ public class MainWindow extends AnchorPane {
     /** Injects the Ducky instance */
     public void setDucky(Ducky d) {
         ducky = d;
+        inputPredictor = new InputPredictor(ducky::getTaskListSize);
         String firstMessage = ducky.getFirstMessage();
         dialogContainer.getChildren().add(
                 DialogBox.getDuckyDialog(firstMessage, duckyImage)

@@ -8,7 +8,7 @@ import java.time.format.DateTimeParseException;
 
 public class DateTimeToken extends Token {
 
-    public DateTimeToken(String _constant) {
+    public DateTimeToken() {
     }
 
     @Override

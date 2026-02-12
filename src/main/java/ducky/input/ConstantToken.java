@@ -16,4 +16,18 @@ public class ConstantToken extends Token {
     public boolean matches(String segment) {
         return segment.equals(constant);
     }
+
+    @Override
+    public boolean prefixMatches(String segment) {
+        if (segment.length() > constant.length()) {
+            return false;
+        }
+
+        if(segment.isEmpty()) {
+            return true;
+        }
+
+        return (constant.substring(0, segment.length())
+                .equals(segment));
+    }
 }

@@ -16,4 +16,6 @@ public class StringToken extends Token {
     public boolean matches(String segment) {
         return true;
     }
+
+
 }

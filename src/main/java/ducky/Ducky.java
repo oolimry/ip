@@ -1,7 +1,5 @@
 package ducky;
 
-import ducky.input.InputPredictor;
-
 import java.util.ArrayList;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
@@ -217,5 +215,9 @@ public class Ducky {
         ui.clearAccumulatedMessages();
 
         return messagesToPutOntoScreen;
+    }
+
+    public int getTaskListSize() {
+        return tasks.size();
     }
 }
