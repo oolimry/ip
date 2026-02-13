@@ -65,11 +65,10 @@ public class InputPredictor {
     public ArrayList<String> getNextPossibleSegments(String input) {
         ArrayList<String> possibleSegments = new ArrayList<String>();
 
-        System.out.println("-------------");
         for (InputPattern inputPattern : inputPatterns) {
             String prediction = inputPattern.getPrediction(input);
             if(!prediction.equals(InputPattern.NO_MATCHING_PREDICTION)) {
-                System.out.println(prediction);
+                possibleSegments.add(prediction);
             }
         }
 

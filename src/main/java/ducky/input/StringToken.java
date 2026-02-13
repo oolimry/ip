@@ -14,6 +14,9 @@ public class StringToken extends Token {
 
     @Override
     public boolean matches(String segment) {
+        if (segment.isEmpty()) {
+            return false;
+        }
         return true;
     }
 

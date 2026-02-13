@@ -1,14 +1,17 @@
 package view;
 
 import ducky.Ducky;
+import ducky.input.InputPattern;
 import ducky.input.InputPredictor;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Controller for the main GUI.
  */
@@ -21,6 +24,8 @@ public class MainWindow extends AnchorPane {
     private TextField userInput;
     @FXML
     private Button sendButton;
+    @FXML
+    private Label autocompleteList;
 
     private Ducky ducky;
     private InputPredictor inputPredictor;
@@ -48,7 +53,43 @@ public class MainWindow extends AnchorPane {
     }
 
     private void onUserInputUpdated(String stringInUserInput) {
-        inputPredictor.getNextPossibleSegments(stringInUserInput);
+        autocompleteList.setVisible(true);
+        ArrayList<String> predictions = inputPredictor.getNextPossibleSegments(stringInUserInput);
+
+        String[] segments = stringInUserInput.split(" ");
+
+        int spacePaddingLength = segments.length - 1;
+        for (int i = 0; i < segments.length - 1; i++) {
+            spacePaddingLength += segments[i].length();
+        }
+        if (!stringInUserInput.isEmpty() && stringInUserInput.charAt(stringInUserInput.length() - 1) == ' ') {
+            spacePaddingLength += segments[segments.length-1].length();
+        }
+        if (spacePaddingLength < 0){
+            spacePaddingLength = 0;
+        }
+        String spacePadding = " ".repeat(spacePaddingLength);
+
+        String textToDisplay = "";
+        if (predictions.isEmpty()) {
+            textToDisplay = spacePadding + "No Known Command";
+        }
+        else if (predictions.contains(InputPattern.MATCHES_COMPLETELY)) {
+            textToDisplay = spacePadding + "Command is Complete";
+        }
+        else{
+            textToDisplay = "";
+
+            for (int i = 0; i < predictions.size(); i++){
+                textToDisplay += spacePadding;
+                textToDisplay += predictions.get(i);
+                if (i != predictions.size() - 1) {
+                    textToDisplay += "\n";
+                }
+            }
+        }
+
+        autocompleteList.setText(textToDisplay);
     }
 
     /**
@@ -56,7 +97,7 @@ public class MainWindow extends AnchorPane {
      * the dialog container. Clears the user input after processing.
      */
     @FXML
-    private void handleUserInput() {
+    private void handleEnterPressed() {
         String input = userInput.getText();
 
         String response = ducky.getResponse(input);
@@ -69,5 +110,7 @@ public class MainWindow extends AnchorPane {
         if(input.equals("bye")) {
             System.exit(0);
         }
+
+        autocompleteList.setVisible(false);
     }
 }

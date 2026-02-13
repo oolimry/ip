@@ -44,7 +44,7 @@ public class InputPattern extends ArrayList<Token> {
             return NO_MATCHING_PREDICTION;
         }
 
-        if (finalToken.matches(finalSegment)) {
+        if (finalToken.matches(finalSegment) && segments.size() == this.size()) {
             return MATCHES_COMPLETELY;
         }
 
