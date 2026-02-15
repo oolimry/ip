@@ -35,9 +35,7 @@ public class Command extends HashMap<String, String> {
             if (segment == segments[0]) {
                 this.put("commandType", param);
                 this.put("commandValue", value);
-            }
-            
-            else {
+            } else {
                 this.put(param, value);
             }
         }

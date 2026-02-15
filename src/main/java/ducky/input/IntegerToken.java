@@ -2,11 +2,20 @@ package ducky.input;
 
 import java.util.function.Supplier;
 
+/**
+ * A Token that takes in any integer
+ * The range of valid integers are given by the Suppliers minValueSupplier and maxValueSupplier
+ */
 public class IntegerToken extends Token {
 
-    private Supplier<Integer> minValueSupplier;
-    private Supplier<Integer> maxValueSupplier;
+    private final Supplier<Integer> minValueSupplier;
+    private final Supplier<Integer> maxValueSupplier;
 
+
+    /**
+     * @param _minValueSupplier a supplier that generates the minimum possible integer in this field
+     * @param _maxValueSupplier a supplier that generates the maximum possible integer in this field
+     */
     public IntegerToken(Supplier<Integer> _minValueSupplier, Supplier<Integer> _maxValueSupplier) {
         this.minValueSupplier = _minValueSupplier;
         this.maxValueSupplier = _maxValueSupplier;
@@ -30,8 +39,7 @@ public class IntegerToken extends Token {
             }
 
             return true;
-        }
-        catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
             return false;
         }
     }

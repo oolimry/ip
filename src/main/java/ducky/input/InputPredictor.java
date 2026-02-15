@@ -3,9 +3,16 @@ package ducky.input;
 import java.util.ArrayList;
 import java.util.function.Supplier;
 
+/**
+ * A class that stores a list of valid input patterns
+ * It predicts a set of next possible inputs
+ */
 public class InputPredictor {
     ArrayList<InputPattern> inputPatterns = new ArrayList<>();
 
+    /**
+     * @param taskListSizeSupplier a Supplier that returns the size of task list
+     */
     public InputPredictor(Supplier<Integer> taskListSizeSupplier) {
         Supplier<Integer> minValueSupplier;
         minValueSupplier = () -> {
@@ -62,6 +69,10 @@ public class InputPredictor {
         ));
     }
 
+    /**
+     * @param input a string input
+     * @return given the list of all possible input patterns
+     */
     public ArrayList<String> getNextPossibleSegments(String input) {
         ArrayList<String> possibleSegments = new ArrayList<String>();
 

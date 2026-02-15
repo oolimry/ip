@@ -3,6 +3,9 @@ package ducky.input;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A series of tokens that represent a valid command structure
+ */
 public class InputPattern extends ArrayList<Token> {
     final String label;
     public static final String NO_MATCHING_PREDICTION = "NO_MATCHING_PREDICTION";
@@ -13,7 +16,15 @@ public class InputPattern extends ArrayList<Token> {
         this.label = _label;
     }
 
-    // returns NOT_MATCHING if it doesn't match at all
+    /**
+     * @param input a string input
+     * @return
+     *         1. MATCHES_COMPLETELY if input matches the input pattern completely
+     *         2. NO_MATCIHNG_PREDICTION if it is impossible for the input to match the pattern
+     *         even after continuing the command
+     *         3. Otherwise, the recommended prediction for what to enter next
+     *         which is the next token's getPreview()
+     */
     String getPrediction(String input) {
         ArrayList<String> segments = new ArrayList<String>();
         segments.addAll(List.of(input.split(" ")));

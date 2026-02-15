@@ -42,7 +42,9 @@ public class MainWindow extends AnchorPane {
         });
     }
 
-    /** Injects the Ducky instance */
+    /**
+     * Injects the Ducky instance
+     */
     public void setDucky(Ducky d) {
         ducky = d;
         inputPredictor = new InputPredictor(ducky::getTaskListSize);
@@ -52,6 +54,12 @@ public class MainWindow extends AnchorPane {
         );
     }
 
+    /**
+     * Runs whenever the string in the input box is changed
+     * Updates the prediction
+     *
+     * @param stringInUserInput the string in the input box
+     */
     private void onUserInputUpdated(String stringInUserInput) {
         autocompleteList.setVisible(true);
         ArrayList<String> predictions = inputPredictor.getNextPossibleSegments(stringInUserInput);

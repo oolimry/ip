@@ -6,6 +6,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * A Token that takes in a DateTime in the format of Constants.SAVE_DATE_FORMAT
+ */
 public class DateTimeToken extends Token {
 
     public DateTimeToken() {
@@ -22,8 +25,7 @@ public class DateTimeToken extends Token {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern(Constants.SAVE_DATE_FORMAT);
             LocalDate.parse(segment, formatter);
             return true;
-        }
-        catch (DateTimeParseException e) {
+        } catch (DateTimeParseException e) {
             return false;
         }
     }

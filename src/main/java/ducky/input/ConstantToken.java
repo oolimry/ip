@@ -1,8 +1,14 @@
 package ducky.input;
 
+/**
+ * A Token that takes in an input that matches exactly a string
+ */
 public class ConstantToken extends Token {
     private final String constant;
 
+    /**
+     * @param _constant the string the input must match this string exactly
+     */
     public ConstantToken(String _constant) {
         this.constant = _constant;
     }
