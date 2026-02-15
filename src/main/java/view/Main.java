@@ -23,6 +23,7 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setDucky(ducky);  // inject the Duke instance
+            stage.setTitle("Ducky");
             stage.show();
 
 
