@@ -1,30 +1,75 @@
-# Duke User Guide
+# Ducky User Guide
 
-// Update the title above to match the actual product name
+Ducky is a simple app to help you keep track of tasks
 
-// Product screenshot goes here
+# List of Commands
 
-// Product intro goes here
+## Adding Tasks
 
-## Adding deadlines
+### Todo
 
-// Describe the action and its outcome.
+```todo <task_description>```
 
-// Give examples of usage
+Adds a todo
 
-Example: `keyword (optional arguments)`
+### Deadline
 
-// A description of the expected outcome goes here
+```deadline <deadline_description> /by yyyy-MM-dd```
 
-```
-expected output
-```
+Adds a deadline that is by a certain date
 
-## Feature ABC
+### Event
 
-// Feature details
+```event <event_description> /from yyyy-MM-dd /to yyyy-MM-dd```
 
+Adds an event that lasts from one date to another
 
-## Feature XYZ
+## Listing tasks
 
-// Feature details
+### List
+
+```List```
+
+This lists all tasks
+
+### Find
+
+```find <match>```
+
+This finds all relevant tasks that matches <match>
+
+## Editing Tasks
+
+Before running any of these commands, it is recommended you run `list` first to get the index of the task you're editing
+
+### Mark
+
+```mark <task_no>```
+
+This masks the task as done. 
+`<task_no>` is the number of the task, which can be seen by running `list`.
+
+### Unmark
+
+```unmark <task_no>```
+`<task_no>` is the number of the task, which can be seen by running `list`.
+
+### Delete
+
+```delete <task_no>```
+`<task_no>` is the number of the task, which can be seen by running `list`.
+Note, this may alter the numbering of the tasks, so it is recommended you run `list` between deletions if you intend to delete several tasks.
+
+## Bye
+
+`bye`
+
+Exists the app
+
+## Autosaving
+
+All tasks are saved locally immediately!
+
+## Predictions
+
+Unsure what to write next? Just look at the prediction box above where you type to see tips of what the next thing to type should be!
