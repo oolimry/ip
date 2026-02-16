@@ -71,18 +71,17 @@ public class InputPredictor {
 
     /**
      * @param input a string input
-     * @return given the list of all possible input patterns
+     * @return return all matching predictions
      */
-    public ArrayList<String> getNextPossibleSegments(String input) {
-        ArrayList<String> possibleSegments = new ArrayList<String>();
+    public ArrayList<Prediction> getAllPredictions(String input) {
+        ArrayList<Prediction> possiblePredictions = new ArrayList<Prediction>();
 
         for (InputPattern inputPattern : inputPatterns) {
-            String prediction = inputPattern.getPrediction(input);
-            if(!prediction.equals(InputPattern.NO_MATCHING_PREDICTION)) {
-                possibleSegments.add(prediction);
-            }
+            Prediction prediction = inputPattern.getPrediction(input);
+            possiblePredictions.add(prediction);
         }
 
-        return possibleSegments;
+        return possiblePredictions;
     }
+
 }

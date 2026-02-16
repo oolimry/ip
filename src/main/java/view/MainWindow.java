@@ -3,6 +3,7 @@ package view;
 import ducky.Ducky;
 import ducky.input.InputPattern;
 import ducky.input.InputPredictor;
+import ducky.input.Prediction;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -62,35 +63,51 @@ public class MainWindow extends AnchorPane {
      */
     private void onUserInputUpdated(String stringInUserInput) {
         autocompleteList.setVisible(true);
-        ArrayList<String> predictions = inputPredictor.getNextPossibleSegments(stringInUserInput);
+        ArrayList<Prediction> predictions = inputPredictor.getAllPredictions(stringInUserInput);
 
-        String[] segments = stringInUserInput.split(" ");
-
-        int spacePaddingLength = segments.length - 1;
-        for (int i = 0; i < segments.length - 1; i++) {
-            spacePaddingLength += segments[i].length();
+        boolean hasOneCompletePrediction = false;
+        boolean hasNoMatchingPredictions = true;
+        for (Prediction prediction : predictions) {
+            if (prediction.isMatchesCompletely()) {
+                hasOneCompletePrediction = true;
+            }
+            if (!prediction.isDoesNotMatch()) {
+                hasNoMatchingPredictions = false;
+            }
         }
-        if (!stringInUserInput.isEmpty() && stringInUserInput.charAt(stringInUserInput.length() - 1) == ' ') {
-            spacePaddingLength += segments[segments.length-1].length();
-        }
-        if (spacePaddingLength < 0){
-            spacePaddingLength = 0;
-        }
-        String spacePadding = " ".repeat(spacePaddingLength);
 
         String textToDisplay = "";
-        if (predictions.isEmpty()) {
-            textToDisplay = spacePadding + "No Known Command";
-        }
-        else if (predictions.contains(InputPattern.MATCHES_COMPLETELY)) {
-            textToDisplay = spacePadding + "Command is Complete";
-        }
-        else{
+        if (hasNoMatchingPredictions) {
+
+            // get the longest prediction
+            // as the longest one means the prefix matches the most so far
+            for (Prediction prediction : predictions) {
+                String formatedText = prediction.getFormattedPrediction();
+                if (formatedText.length() > textToDisplay.length()) {
+                    textToDisplay = formatedText;
+                }
+            }
+
+        } else if (hasOneCompletePrediction) {
+
+            for (Prediction prediction : predictions) {
+                if (prediction.isMatchesCompletely()) {
+                    textToDisplay = prediction.getFormattedPrediction();
+                    break;
+                }
+            }
+
+        } else {
             textToDisplay = "";
 
             for (int i = 0; i < predictions.size(); i++){
-                textToDisplay += spacePadding;
-                textToDisplay += predictions.get(i);
+                Prediction prediction = predictions.get(i);
+
+                if (prediction.isDoesNotMatch()) {
+                    continue;
+                }
+
+                textToDisplay += prediction.getFormattedPrediction();
                 if (i != predictions.size() - 1) {
                     textToDisplay += "\n";
                 }

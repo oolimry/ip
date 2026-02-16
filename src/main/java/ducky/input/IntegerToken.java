@@ -43,4 +43,23 @@ public class IntegerToken extends Token {
             return false;
         }
     }
+
+    @Override
+    public boolean prefixMatches(String segment) {
+        if (segment.isEmpty()) {
+            return true;
+        }
+
+        try {
+            int value = Integer.parseInt(segment);
+
+            if (value > maxValueSupplier.get()) {
+                return false;
+            }
+
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
 }

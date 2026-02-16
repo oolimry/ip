@@ -27,5 +27,8 @@ public class StringToken extends Token {
         return true;
     }
 
-
+    @Override
+    public boolean allowSpaces() {
+        return true;
+    }
 }

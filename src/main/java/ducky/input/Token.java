@@ -26,4 +26,11 @@ public abstract class Token {
     public boolean prefixMatches(String segment) {
         return true;
     }
+
+    /**
+     * @return whether this token allow spaces, which by default is false
+     */
+    public boolean allowSpaces() {
+        return false;
+    }
 }
