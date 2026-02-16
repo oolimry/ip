@@ -63,10 +63,10 @@
         </ScrollPane>
 
         <Label fx:id="autocompleteList"
-               visible="false"
+               visible="true"
                wrapText="false"
                style="-fx-background-color: #000000;
-              -fx-text-fill: #788C73;
+              -fx-text-fill: #889C83;
               -fx-border-color: #000000;
               -fx-border-width: 1;
               -fx-padding: 5 10 5 10;

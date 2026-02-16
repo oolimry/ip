@@ -41,6 +41,8 @@ public class MainWindow extends AnchorPane {
         userInput.textProperty().addListener((observable, oldValue, newValue) -> {
             onUserInputUpdated(newValue);
         });
+
+
     }
 
     /**
@@ -50,9 +52,19 @@ public class MainWindow extends AnchorPane {
         ducky = d;
         inputPredictor = new InputPredictor(ducky::getTaskListSize);
         String firstMessage = ducky.getFirstMessage();
-        dialogContainer.getChildren().add(
-                DialogBox.getDuckyDialog(firstMessage, duckyImage)
-        );
+
+        if (!firstMessage.isEmpty()) {
+            dialogContainer.getChildren().add(
+                    DialogBox.getDuckyDialog(firstMessage, duckyImage)
+            );
+        }
+        else {
+            dialogContainer.getChildren().add(
+                    DialogBox.getDuckyDialog(firstMessage, duckyImage)
+            );
+        }
+
+        onUserInputUpdated("");
     }
 
     /**

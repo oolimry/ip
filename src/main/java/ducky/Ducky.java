@@ -31,6 +31,10 @@ public class Ducky {
 
             ui.printMessage("Tasks Loaded!\n");
         }
+        else {
+            ui.printMessage("Welcome! You can follow the tooltip below to enter commands.\n" +
+                    "If you need more help, please visit: https://oolimry.github.io/ip/");
+        }
 
         String messagesToPutOntoScreen = ui.getAccumulatedMessages();
         ui.clearAccumulatedMessages();

@@ -1,10 +1,7 @@
 package ducky;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
+import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,9 +28,6 @@ public class SaveManager {
             }
 
         } catch (IOException e) {
-
-            System.err.println("An error occurred: " + e.getMessage());
-            e.printStackTrace();
 
         }
     }
@@ -90,13 +84,17 @@ public class SaveManager {
                 assert (commandType.equals("todo") || commandType.equals("deadline") || commandType.equals("event") );
                 commands.add(new Command(line));
             });
+        } catch (NoSuchFileException e) {
+
+            System.out.println("No load file found");
+
         } catch (IOException e) {
 
             System.err.println("An error occurred: " + e.getMessage());
             e.printStackTrace();
 
         }
-        
+
         return commands;
     }
 }
